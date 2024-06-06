@@ -6,6 +6,7 @@ import androidx.lifecycle.liveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.example.story.network.ApiService
 import com.example.story.network.StoryPaging
 import com.example.story.network.response.LoginResponse
@@ -37,7 +38,7 @@ class Repository(private val apiService: ApiService){
         }
     }
 
-    fun getStory(): Flow<PagingData<StoryItem>> {
+    fun getStory(): LiveData<PagingData<StoryItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
@@ -45,6 +46,6 @@ class Repository(private val apiService: ApiService){
             pagingSourceFactory = {
                 StoryPaging(apiService)
             }
-        ).flow
+        ).liveData
     }
 }

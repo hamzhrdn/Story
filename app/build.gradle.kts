@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -34,6 +35,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        //noinspection DataBindingWithoutKapt
         dataBinding = true
         viewBinding = true
     }
@@ -66,5 +68,16 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")
 
     //Fragment
+    //noinspection GradleDependency
     implementation("androidx.fragment:fragment-ktx:$1.7.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0@aar"){
+        isTransitive = true
+    }
+    annotationProcessor("androidx.annotation:annotation:1.8.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 }

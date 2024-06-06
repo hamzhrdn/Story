@@ -11,7 +11,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.story.R
 import com.example.story.databinding.FragmentLoginBinding
+import com.example.story.register.RegisterFragmentDirections
 import com.example.story.utils.Preferences
 import com.example.story.utils.Result
 import com.example.story.utils.ViewModelFactory
@@ -57,6 +61,8 @@ class LoginFragment : Fragment() {
                                 Toast.makeText(requireContext(), result.data.message, Toast.LENGTH_LONG).show()
                             }else{
                                 Preferences.saveToken(result.data.loginResult!!.token!!, requireContext())
+                                val action = LoginFragmentDirections.actionLoginFragment2ToHomeFragment()
+                                findNavController().navigate(action)
                                 requireActivity().finish()
                             }
                             showLoading(false)

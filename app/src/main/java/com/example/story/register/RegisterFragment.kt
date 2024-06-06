@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.story.R
 import com.example.story.databinding.FragmentLoginBinding
 import com.example.story.databinding.FragmentRegisterBinding
@@ -50,6 +52,8 @@ class RegisterFragment : Fragment() {
                         }
                         is Result.Success->{
                             Toast.makeText(requireContext(),result.data.message, Toast.LENGTH_LONG).show()
+                            val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment2()
+                            findNavController().navigate(action)
                             showLoading(false)
                         }
                         is Result.Error->{

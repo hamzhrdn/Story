@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.story.R
 import com.example.story.databinding.FragmentIntroBinding
 import com.example.story.utils.Preferences
@@ -43,7 +44,8 @@ class IntroFragment : Fragment() {
         }
 
         if(token!=""){
-            view.findNavController().navigate(R.id.action_introFragment_to_homeFragment)
+            val action = IntroFragmentDirections.actionIntroFragmentToHomeFragment()
+            findNavController().navigate(action)
         }
     }
 
