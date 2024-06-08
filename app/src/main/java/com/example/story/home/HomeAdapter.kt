@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.story.databinding.ListStoryBinding
 import com.example.story.network.response.StoryItem
+import com.squareup.picasso.Picasso
 
 class HomeAdapter(private val callback: (story: StoryItem, imageView: View, nameView: View, descView: View) -> Unit) : PagingDataAdapter<StoryItem, StoriesViewHolder>(DIFF_CALLBACK){
 
@@ -49,7 +49,7 @@ class HomeAdapter(private val callback: (story: StoryItem, imageView: View, name
 
 class StoriesViewHolder(val view: ListStoryBinding) : RecyclerView.ViewHolder(view.root) {
     fun bind(item: StoryItem) {
-        Glide.with(view.root.context).load(item.photoUrl).into(view.image)
+        Picasso.get().load(item.photoUrl).into(view.image)
         view.storyTitle.text = item.name.toString()
         view.storyDescription.text = item.description.toString()
     }

@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.story.MainActivity
 import com.example.story.R
 import com.example.story.databinding.FragmentIntroBinding
 import com.example.story.utils.Preferences
@@ -36,10 +37,10 @@ class IntroFragment : Fragment() {
         val sharedPreferences = Preferences.initPref(requireContext(),"Login")
         val token = sharedPreferences.getString("token", "")
 
-        binding.registerButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_introFragment_to_registerFragment)
-        )
-        binding.loginButton.setOnClickListener { view ->
+        binding.registerButton.setOnClickListener {
+            view.findNavController().navigate(R.id.action_introFragment_to_registerFragment)
+        }
+        binding.loginButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_introFragment_to_loginFragment2)
         }
 
@@ -48,7 +49,10 @@ class IntroFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
-
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).navBar.visibility = View.GONE
+    }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

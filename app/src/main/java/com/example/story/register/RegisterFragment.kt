@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.story.MainActivity
 import com.example.story.R
 import com.example.story.databinding.FragmentLoginBinding
 import com.example.story.databinding.FragmentRegisterBinding
@@ -40,9 +41,9 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonRegister.setOnClickListener{
-            val name = binding.name.toString()
-            val email = binding.email.toString()
-            val password = binding.password.toString()
+            val name = binding.name.text.toString()
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
 
             viewModel.register(name, email, password).observe(requireActivity()){result->
                 if(result!=null){
@@ -51,7 +52,7 @@ class RegisterFragment : Fragment() {
                             showLoading(true)
                         }
                         is Result.Success->{
-                            Toast.makeText(requireContext(),result.data.message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), result.data.message, Toast.LENGTH_LONG).show()
                             val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment2()
                             findNavController().navigate(action)
                             showLoading(false)
@@ -64,6 +65,10 @@ class RegisterFragment : Fragment() {
                 }
             }
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).navBar.visibility = View.GONE
     }
     private fun showLoading(con : Boolean){
         binding.progressbar.isVisible = con

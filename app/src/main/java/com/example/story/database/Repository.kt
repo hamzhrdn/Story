@@ -10,10 +10,13 @@ import androidx.paging.liveData
 import com.example.story.network.ApiService
 import com.example.story.network.StoryPaging
 import com.example.story.network.response.LoginResponse
+import com.example.story.network.response.PostStoryResponse
 import com.example.story.network.response.RegisterResponse
 import com.example.story.network.response.StoryItem
 import com.example.story.utils.Result
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class Repository(private val apiService: ApiService){
     fun postLogin(email: String, password: String): LiveData<Result<LoginResponse>> = liveData{
@@ -33,7 +36,7 @@ class Repository(private val apiService: ApiService){
             val response = apiService.postRegister(name, email, password)
             emit(Result.Success(response))
         }catch (e: Exception){
-            Log.e("LoginViewModel", "postRegister: ${e.message.toString()}")
+            Log.e("RegisterViewModel", "postRegister: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }
@@ -47,5 +50,16 @@ class Repository(private val apiService: ApiService){
                 StoryPaging(apiService)
             }
         ).liveData
+    }
+
+    fun postStory(file: MultipartBody.Part, description: RequestBody):LiveData<Result<PostStoryResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.postStory(file, description)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e("AddStoryViewModel", "postStory: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
     }
 }

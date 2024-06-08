@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -13,13 +12,13 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.example.story.R
 
-class PasswordEditText @JvmOverloads constructor(
+class customEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : AppCompatEditText(context, attrs), View.OnTouchListener {
+) : AppCompatEditText(context, attrs), View.OnTouchListener{
+
     private var clearButtonImage: Drawable
 
     init {
-        transformationMethod = PasswordTransformationMethod.getInstance()
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.baseline_close_24) as Drawable
         setOnTouchListener(this)
 
@@ -29,20 +28,12 @@ class PasswordEditText @JvmOverloads constructor(
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.toString().isNotEmpty()) showClearButton() else hideClearButton()
-
-                val password = s.toString().trim()
-                if (!validatePassword(password)) {
-                    error = "Invalid password"
-                } else {
-                    error = null
-                }
             }
             override fun afterTextChanged(s: Editable) {
                 // Do nothing
             }
         })
     }
-
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
         if (compoundDrawables[2] != null) {
             val clearButtonStart: Float
@@ -83,7 +74,6 @@ class PasswordEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Enter your password"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -96,8 +86,8 @@ class PasswordEditText @JvmOverloads constructor(
 
     private fun setButtonDrawables(
         startOfTheText: Drawable? = null,
-        topOfTheText: Drawable? = null,
-        endOfTheText: Drawable? = null,
+        topOfTheText:Drawable? = null,
+        endOfTheText:Drawable? = null,
         bottomOfTheText: Drawable? = null
     ){
         setCompoundDrawablesWithIntrinsicBounds(
@@ -106,9 +96,5 @@ class PasswordEditText @JvmOverloads constructor(
             endOfTheText,
             bottomOfTheText
         )
-    }
-
-    fun validatePassword(password: String): Boolean {
-        return password.length >= 8
     }
 }

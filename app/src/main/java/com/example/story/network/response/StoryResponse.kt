@@ -1,5 +1,6 @@
 package com.example.story.network.response
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,14 +10,15 @@ data class StoryResponse(
 	val message: String? = null
 )
 
+@Entity(tableName = "story")
 data class StoryItem(
-	val photoUrl: String? = null,
-	val createdAt: String? = null,
-	val name: String? = null,
-	val description: String? = null,
-	val lon: Double? = null,
+	val photoUrl: String,
+	val createdAt: String,
+	val name: String,
+	val description: String,
+	val lon: Double,
 	@PrimaryKey
-	val id: String? = null,
-	val lat: Double? = null
+	val id: String,
+	val lat: Double
 )
 
