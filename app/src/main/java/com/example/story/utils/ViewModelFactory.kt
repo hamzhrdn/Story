@@ -3,6 +3,7 @@ package com.example.story.utils
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.story.addstory.AddStoryViewModel
 import com.example.story.home.HomeViewModel
 import com.example.story.login.LoginViewModel
 import com.example.story.register.RegisterViewModel
@@ -19,6 +20,9 @@ class ViewModelFactory(private val context: Context): ViewModelProvider.Factory 
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(Injection.provideRepository(context)) as T
+
+            }modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
+                AddStoryViewModel(Injection.provideRepository(context)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class")
         }

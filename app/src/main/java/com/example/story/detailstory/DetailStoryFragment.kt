@@ -27,17 +27,17 @@ class DetailStoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailStoryBinding.inflate(inflater, container, false)
-        postponeEnterTransition()
+
+        binding.tvTitle.text = args.name
+        binding.tvDescription.text = args.description
+        Picasso.get().load(args.photoUrl).into(binding.ivImage)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-
-        Picasso.get().load(args.photoUrl).into(binding.ivImage)
-        binding.tvTitle.text = args.name
-        binding.tvDescription.text = args.description
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.slide_top)
     }
 
     override fun onDestroyView() {

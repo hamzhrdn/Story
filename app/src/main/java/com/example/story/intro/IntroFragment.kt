@@ -51,7 +51,12 @@ class IntroFragment : Fragment() {
     }
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).navBar.visibility = View.GONE
+        try {
+            (activity as MainActivity).navBar.visibility = View.GONE
+        }
+        catch (_: Exception) {
+
+        }
     }
     override fun onDestroy() {
         super.onDestroy()

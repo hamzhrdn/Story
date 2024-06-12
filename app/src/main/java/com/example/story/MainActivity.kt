@@ -2,14 +2,20 @@ package com.example.story
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.story.addstory.AddStoryFragment
+import com.example.story.databinding.ActivityMainBinding
 import com.example.story.home.HomeFragment
 import com.example.story.intro.IntroFragment
 import com.example.story.utils.Preferences
@@ -19,33 +25,36 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     lateinit var navBar: BottomNavigationView
 
-    private lateinit var homeFragment: HomeFragment
-    private lateinit var introFragment: IntroFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         val sharedPref = Preferences.initPref(this, "onSignIn")
         val token = sharedPref.getString("token", "")
 
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         navController = navHostFragment.navController
-        navBar = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
+        navBar = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         navBar.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
+                    Log.e("Ïtem", "home")
                     navController.navigate(R.id.homeFragment)
+//                    swapFragment(HomeFragment())
                     true
                 }
                 R.id.logout -> {
+                    Log.e("Ïtem", "logout")
                     Preferences.logout(this)
                     navController.navigate(R.id.introFragment)
                     true
                 }
-                R.id.add ->{
+                R.id.add -> {
+                    Log.e("Ïtem", "add")
                     navController.navigate(R.id.addStoryFragment)
+//                    swapFragment(AddStoryFragment())
                     true
                 }
                 else -> {
@@ -53,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         navController.addOnDestinationChangedListener{_, destination, _ ->
             when(destination.id){
@@ -63,16 +71,24 @@ class MainActivity : AppCompatActivity() {
                     navBar.visibility = View.VISIBLE
                 }
             }
+            Log.d("NavController", "Navigated to ${destination.label}")
         }
 
         if (savedInstanceState == null) {
             if (token != "") {
                 navController.navigate(R.id.homeFragment)
-                navBar.visibility = View.VISIBLE
             } else {
                 navController.navigate(R.id.introFragment)
-                navBar.visibility = View.GONE
             }
         }
+
+
+    }
+
+    private fun swapFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .commit();
     }
 }
