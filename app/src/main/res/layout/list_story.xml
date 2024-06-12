@@ -25,6 +25,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginRight="12dp"
             android:scaleType="centerCrop"
+            android:transitionName="image"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
@@ -40,6 +41,7 @@
             android:text="@string/story_title"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:transitionName="title"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/image" />
@@ -54,6 +56,7 @@
             android:text="@string/story_description"
             android:textSize="14sp"
             android:textStyle="normal"
+            android:transitionName="description"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="@+id/story_title"
             card_view:layout_constraintTop_toBottomOf="@+id/story_title" />
