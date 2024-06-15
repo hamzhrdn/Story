@@ -2,7 +2,6 @@ package com.example.story.database
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -14,11 +13,10 @@ import com.example.story.network.response.LoginResponse
 import com.example.story.network.response.PostStoryResponse
 import com.example.story.network.response.RegisterResponse
 import com.example.story.network.response.StoryItem
+import com.example.story.network.response.StoryResponse
 import com.example.story.utils.Result
-import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.HttpException
 
 class Repository(private val apiService: ApiService){
     fun postLogin(email: String, password: String): LiveData<Result<LoginResponse>> = liveData{
@@ -61,6 +59,18 @@ class Repository(private val apiService: ApiService){
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.e("AddStoryViewModel", "postStory: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun getStoryWithLocation() : LiveData<Result<StoryResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getStoryWithLocation(1)
+            Log.d("Repository", "get Responses ")
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.d("Repository", "getStoriesWithLocation: ${e.message.toString()} ")
             emit(Result.Error(e.message.toString()))
         }
     }

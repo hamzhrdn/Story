@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.story.addstory.AddStoryViewModel
 import com.example.story.home.HomeViewModel
 import com.example.story.login.LoginViewModel
+import com.example.story.maps.MapsViewModel
 import com.example.story.register.RegisterViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -20,9 +21,12 @@ class ViewModelFactory(private val context: Context): ViewModelProvider.Factory 
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(Injection.provideRepository(context)) as T
-
-            }modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
+            }
+            modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(Injection.provideRepository(context)) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(Injection.provideRepository(context)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class")
         }

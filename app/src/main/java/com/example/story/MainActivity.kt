@@ -1,23 +1,13 @@
 package com.example.story
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.example.story.addstory.AddStoryFragment
-import com.example.story.databinding.ActivityMainBinding
-import com.example.story.home.HomeFragment
-import com.example.story.intro.IntroFragment
 import com.example.story.utils.Preferences
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -43,6 +33,12 @@ class MainActivity : AppCompatActivity() {
                     Log.e("Ïtem", "home")
                     navController.navigate(R.id.homeFragment)
 //                    swapFragment(HomeFragment())
+                    true
+                }
+                R.id.location ->{
+                    Log.e("Ïtem", "map")
+                    navController.navigate(R.id.mapsFragment)
+//                    swapFragment(MapsFragment())
                     true
                 }
                 R.id.logout -> {
