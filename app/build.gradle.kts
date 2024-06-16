@@ -59,6 +59,7 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.3.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("junit:junit:4.12")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -77,4 +78,15 @@ dependencies {
 
     //Picasso
     implementation("com.squareup.picasso:picasso:2.71828")
+
+
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0@aar")//InstantTaskExecutorRule
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") //TestDispatcher
+
+    testImplementation("androidx.test:core:1.5.0") // InstantTaskExecutorRule
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") //TestDispatcher
+    testImplementation("org.mockito:mockito-core:3.11.2")
+    testImplementation("org.mockito:mockito-inline:3.11.2")
+    testImplementation("org.robolectric:robolectric:4.8")
 }
